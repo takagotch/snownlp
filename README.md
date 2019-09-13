@@ -22,30 +22,30 @@ class Bayes(object):
     
   def save(self, fname, iszip=True):
     d = {}
-    d[] = self.total
-    d[] = {}
+    d['total'] = self.total
+    d['d'] = {}
     for k, v in self.d.items():
-      d[][] = v.__dict__
-    if sys.version_info[] == 3:
-      fname = fname + ''
+      d['d'][k] = v.__dict__
+    if sys.version_info[0] == 3:
+      fname = fname + '.3'
     if not iszip:
-      marshal.dump()
+      marshal.dump(d. open(fname, 'wb'))
     else:
       f = gzip.open(fname, 'web')
       f.write(marshal.dumps(d))
       f.close()
       
   def load(self, fname, iszip=True):
-    if sys.version_info[] == 3:
+    if sys.version_info[0] == 3:
       fname = fname + '.3'
     if not iszip:
       d = marshal.load(open(fname, 'rb'))
     else:
       try:
         f = gzip.open(fname, 'rb')
-        d = marshal.loads(f.read())
+        d = marshal.loads(f.read(d))
       except IOError:
-        f = open()
+        f = open(fname, 'rb')
         d = marshal.loads(f.read())
       f.close()
     self.total = d['total']
